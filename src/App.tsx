@@ -2,20 +2,40 @@
  * @Description  :
  * @Author       : ch1lam
  * @Date         : 2022-01-12 19:24:09
- * @LastEditTime : 2022-01-17 23:28:32
+ * @LastEditTime : 2022-01-20 17:31:41
  * @LastEditors  : chilam
  * @FilePath     : \weather\src\App.tsx
  */
 import "./App.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Weather, { WeatherProps } from "./components/Weather";
+import Weather, { CityProps, WeatherProps } from "./components/Weather";
 import Container from "./layout/Container";
 
 function App() {
   const [lat, setLat] = useState(0);
   const [long, setLong] = useState(0);
-  const [city, setCity] = useState("北京");
+  const [city, setCity] = useState<CityProps>({
+    // code: 200,
+    location: [
+      {
+        name: "北京",
+        id: "101010100",
+        lat: 39.90498,
+        lon: 116.40528,
+        adm2: "北京",
+        adm1: "北京市",
+        country: "中国",
+        tz: "Asia/Shanghai",
+        utcOffset: "+08:00",
+        isDst: 0,
+        type: "city",
+        rank: 10,
+        fxLink: "http://hfx.link/2ax1",
+      },
+    ],
+    // refer: null,
+  });
   const [data, setData] = useState<WeatherProps>({
     code: 200,
     updateTime: "2020-06-30T22:00+08:00",
@@ -56,7 +76,7 @@ function App() {
           },
         })
         .then((res) => {
-          setCity(res.data.location[0].name);
+          setCity(res.data.location[0]);
         });
 
       await axios
@@ -72,13 +92,13 @@ function App() {
     };
 
     fetchData();
+    // console.log(city);
   }, []);
 
   return (
     <div className="flex justify-center items-center h-screen bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500">
       <Container>
-        <Weather {...data} />
-        <div className="text-2xl text-white">{city}</div>
+        <Weather props={data}/>
       </Container>
     </div>
   );

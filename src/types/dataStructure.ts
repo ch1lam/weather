@@ -2,7 +2,7 @@
  * @Description  : 定义数据接口
  * @Author       : ch1lam
  * @Date         : 2022-01-15 18:03:48
- * @LastEditTime : 2022-01-17 17:02:00
+ * @LastEditTime : 2022-01-20 17:20:59
  * @LastEditors  : chilam
  * @FilePath     : \weather\src\types\dataStructure.ts
  */
@@ -38,10 +38,10 @@ export interface Location {
   lon: number;
   adm2: string;
   adm1: string;
-  contry: string;
+  country: string;
   tz: string;
   utcOffset: string;
-  isDst: boolean;
+  isDst: number;
   type: string;
   rank: number;
   fxLink: string;
